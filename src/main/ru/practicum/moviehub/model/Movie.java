@@ -6,7 +6,7 @@ public class Movie {
     private String title;
     private int year;
 
-    public Movie(String string, int year) {
+    public Movie(String title, int year) {
         this.title = title;
         this.year = year;
     }
@@ -20,7 +20,7 @@ public class Movie {
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, year);
+        return Math.abs(Objects.hash(title, year));
     }
 
     @Override

@@ -98,7 +98,8 @@ public class MoviesHandler extends BaseHttpHandler {
         if (filmId.isEmpty()) {
             sendErrorJson(exchange, 404,"Фильм не найден", "фильм с данным ID отсутствует в базе");
         } else {
-            sendJson(exchange, 200, filmId.toString());
+            Movie movie = filmId.get();
+            sendJson(exchange, 200, movie.toString());
         }
     }
 
@@ -117,6 +118,7 @@ public class MoviesHandler extends BaseHttpHandler {
             sendErrorJson(exchange, 422,"Год должен быть между 1888 и 2027", "Проверьте правильность указанного года");
             return;
         }
+
         List<Movie> movieList = moviesStore.FindFilmByYear(year);
 
         if (movieList.isEmpty()) {
@@ -161,7 +163,7 @@ public class MoviesHandler extends BaseHttpHandler {
         if (deleteStatus) {
             sendNoContent(exchange);
         } else {
-            sendErrorJson(exchange, 404,"Фильм с данным Id не найден", "Такого фильма еще нет");
+            sendErrorJson(exchange, 404,"Фильм с данным ID не найден", "Такого фильма еще нет");
         }
     }
 }
