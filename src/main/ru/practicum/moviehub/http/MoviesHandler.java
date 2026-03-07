@@ -134,7 +134,7 @@ public class MoviesHandler extends BaseHttpHandler {
 
         if (pathParts.length == 2 && pathParts[1].equals("movies")) {
 
-            if (exchange.getRequestURI().getQuery()!= null && exchange.getRequestURI().getQuery().contains("year")) {
+            if (exchange.getRequestURI().getQuery() != null && exchange.getRequestURI().getQuery().contains("year")) {
                 getByYear(exchange);
                 return;
             }
