@@ -57,7 +57,7 @@ public class MoviesApiTest {
     }
 
     @Test
-    void PostMovieAndGetMoviesNotEmptyArray() throws Exception {
+    void postMovieAndGetMoviesNotEmptyArray() throws Exception {
         HttpRequest req1 = HttpRequest.newBuilder()
                 .uri(URI.create(BASE + "/movies"))
                 .header("Content-Type", "application/json")
@@ -99,7 +99,7 @@ public class MoviesApiTest {
     }
 
     @Test
-    void PostErrors() throws Exception {
+    void postErrors() throws Exception {
         HttpRequest req1 = HttpRequest.newBuilder()
                 .uri(URI.create(BASE + "/movies"))
                 .header("Content-Type", "application/json")
@@ -156,7 +156,7 @@ public class MoviesApiTest {
     }
 
     @Test
-    void TestGetByIdAndDelete() throws Exception {
+    void testGetByIdAndDelete() throws Exception {
         Gson gson = new Gson();
         Movie movie = new Movie("Приключения шурика", 1978);
         String json = gson.toJson(movie);
@@ -192,7 +192,7 @@ public class MoviesApiTest {
     }
 
     @Test
-    void TestGetByIdAndDeleteErrors() throws Exception {
+    void testGetByIdAndDeleteErrors() throws Exception {
         Movie movie = new Movie("Человек-паук", 2007);
         int id = movie.hashCode();
 
@@ -234,7 +234,7 @@ public class MoviesApiTest {
     }
 
     @Test
-    void TestGetByYearAndErrors() throws Exception {
+    void testGetByYearAndErrors() throws Exception {
         Gson gson = new Gson();
         Movie movie = new Movie("12 стульев", 1975);
         String json = gson.toJson(movie);
