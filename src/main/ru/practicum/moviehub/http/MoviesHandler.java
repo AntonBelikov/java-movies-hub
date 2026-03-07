@@ -119,7 +119,7 @@ public class MoviesHandler extends BaseHttpHandler {
             return;
         }
 
-        List<Movie> movieList = moviesStore.FindFilmByYear(year);
+        List<Movie> movieList = moviesStore.findFilmByYear(year);
 
         if (movieList.isEmpty()) {
             sendErrorJson(exchange, 404,"Фильмы за данный год не найдены", "Данный год еще не добавлен");

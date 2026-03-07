@@ -45,7 +45,7 @@ public class MoviesStore {
         return false;
     }
 
-    public List<Movie> FindFilmByYear(int year) {
+    public List<Movie> findFilmByYear(int year) {
         return movieList.stream().filter(movie -> movie.getYear() == year).collect(Collectors.toList());
     }
 
