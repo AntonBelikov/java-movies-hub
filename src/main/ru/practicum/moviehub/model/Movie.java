@@ -1,7 +1,6 @@
 package ru.practicum.moviehub.model;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class Movie {
     private String title;
