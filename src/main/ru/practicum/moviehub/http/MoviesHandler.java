@@ -13,6 +13,7 @@ import java.util.Optional;
 
 public class MoviesHandler extends BaseHttpHandler {
     private final MoviesStore moviesStore;
+    protected static final String CT_APPLICATION = "application/json";
 
     public MoviesHandler(MoviesStore moviesStore) {
         this.moviesStore = moviesStore;
@@ -39,9 +40,9 @@ public class MoviesHandler extends BaseHttpHandler {
     }
 
     private void postNewFilm(HttpExchange exchange) throws IOException {
-        String contentType = exchange.getRequestHeaders().getFirst("Content-Type");
+        String contentType = exchange.getRequestHeaders().getFirst(CT);
 
-        if (!contentType.equals("application/json")) {
+        if (!contentType.equals(CT_APPLICATION)) {
             sendErrorJson(exchange, 415,"Неверный тип заголовка", "Проверьте введенные данные");
             return;
         }

@@ -1,14 +1,17 @@
 package ru.practicum.moviehub.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Movie {
     private String title;
     private int year;
+    private int id;
 
     public Movie(String title, int year) {
         this.title = title;
         this.year = year;
+        id = 0;
     }
 
     @Override
@@ -20,7 +23,7 @@ public class Movie {
 
     @Override
     public int hashCode() {
-        return Math.abs(Objects.hash(title, year));
+        return Objects.hash(title, year);
     }
 
     @Override
@@ -28,7 +31,7 @@ public class Movie {
         return "Movie{" +
                 "title='" + title + '\'' +
                 ", year=" + year + '\'' +
-                ", id=" + hashCode() +
+                ", id=" + id +
                 '}';
     }
 
@@ -40,11 +43,19 @@ public class Movie {
         return title;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

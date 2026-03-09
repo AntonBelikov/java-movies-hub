@@ -95,7 +95,7 @@ public class MoviesApiTest {
 
         assertFalse(body.isBlank());
         assertEquals("[Movie{title='Люди в черном', year=2018'," +
-                " id=1174945533}, Movie{title='Мстители', year=2013', id=615757549}]", body);
+                " id=2}, Movie{title='Мстители', year=2013', id=3}]", body);
     }
 
     @Test
@@ -157,15 +157,11 @@ public class MoviesApiTest {
 
     @Test
     void testGetByIdAndDelete() throws Exception {
-        Gson gson = new Gson();
-        Movie movie = new Movie("Приключения шурика", 1978);
-        String json = gson.toJson(movie);
-        int id = movie.hashCode();
 
         HttpRequest req1 = HttpRequest.newBuilder()
                 .uri(URI.create(BASE + "/movies"))
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .POST(HttpRequest.BodyPublishers.ofString("{\"title\":\"Приключения Шурика\",\"year\":\"1978\"}"))
                 .build();
 
         HttpResponse<String> resp1 = client.send(req1, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
@@ -173,7 +169,7 @@ public class MoviesApiTest {
         assertEquals(201, resp1.statusCode(), "POST /movies должен вернуть 201");
 
         HttpRequest req2 = HttpRequest.newBuilder()
-                .uri(URI.create(BASE + "/movies/" + id))
+                .uri(URI.create(BASE + "/movies/" + 1))
                 .GET()
                 .build();
 
@@ -182,7 +178,7 @@ public class MoviesApiTest {
         assertEquals(200, resp2.statusCode(), "GET /movies должен вернуть 200");
 
         HttpRequest req3 = HttpRequest.newBuilder()
-                .uri(URI.create(BASE + "/movies/" + id))
+                .uri(URI.create(BASE + "/movies/" + 1))
                 .DELETE()
                 .build();
 
@@ -193,11 +189,9 @@ public class MoviesApiTest {
 
     @Test
     void testGetByIdAndDeleteErrors() throws Exception {
-        Movie movie = new Movie("Человек-паук", 2007);
-        int id = movie.hashCode();
 
         HttpRequest req1 = HttpRequest.newBuilder()
-                .uri(URI.create(BASE + "/movies/" + id))
+                .uri(URI.create(BASE + "/movies/" + 18080))
                 .GET()
                 .build();
 
@@ -215,7 +209,7 @@ public class MoviesApiTest {
         assertEquals(400, resp2.statusCode(), "GET /movies должен вернуть 400");
 
         HttpRequest req3 = HttpRequest.newBuilder()
-                .uri(URI.create(BASE + "/movies/" + id))
+                .uri(URI.create(BASE + "/movies/" + 12392))
                 .DELETE()
                 .build();
 
@@ -235,15 +229,10 @@ public class MoviesApiTest {
 
     @Test
     void testGetByYearAndErrors() throws Exception {
-        Gson gson = new Gson();
-        Movie movie = new Movie("12 стульев", 1975);
-        String json = gson.toJson(movie);
-        int id = movie.hashCode();
-
         HttpRequest reqPost = HttpRequest.newBuilder()
                 .uri(URI.create(BASE + "/movies"))
                 .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json))
+                .POST(HttpRequest.BodyPublishers.ofString("{\"title\":\"12 стульев\",\"year\":\"1975\"}"))
                 .build();
 
         HttpResponse<String> respPost = client.send(reqPost, HttpResponse.BodyHandlers.ofString(StandardCharsets.UTF_8));
@@ -260,7 +249,7 @@ public class MoviesApiTest {
         String body = resp1.body().trim();
 
         assertFalse(body.isBlank());
-        assertEquals("[Movie{title='12 стульев', year=1975', id=1663915911}]", body);
+        assertEquals("[Movie{title='12 стульев', year=1975', id=4}]", body);
 
         HttpRequest req2 = HttpRequest.newBuilder()
                 .uri(URI.create(BASE + "/movies" + "?year=2000"))
@@ -281,7 +270,7 @@ public class MoviesApiTest {
         assertEquals(400, resp3.statusCode(), "GET /movies должен вернуть 400");
 
         HttpRequest reqDelete = HttpRequest.newBuilder()
-                .uri(URI.create(BASE + "/movies/" + id))
+                .uri(URI.create(BASE + "/movies/" + 1))
                 .DELETE()
                 .build();
 

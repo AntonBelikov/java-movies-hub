@@ -8,9 +8,10 @@ import java.nio.charset.StandardCharsets;
 
 abstract class BaseHttpHandler implements HttpHandler {
     protected static final String CT_JSON = "application/json; charset=UTF-8";
+    protected static final String CT = "Content-Type";
 
     protected void sendJson(HttpExchange ex, int status, String json) throws IOException {
-        ex.getResponseHeaders().set("Content-Type", CT_JSON);
+        ex.getResponseHeaders().set(CT, CT_JSON);
         ex.sendResponseHeaders(status, 0);
 
         try (OutputStream os = ex.getResponseBody()) {
@@ -19,7 +20,7 @@ abstract class BaseHttpHandler implements HttpHandler {
     }
 
     protected void sendNoContent(HttpExchange ex) throws java.io.IOException {
-        ex.getResponseHeaders().set("Content-Type", CT_JSON);
+        ex.getResponseHeaders().set(CT, CT_JSON);
         ex.sendResponseHeaders(204, -1);
     }
 }

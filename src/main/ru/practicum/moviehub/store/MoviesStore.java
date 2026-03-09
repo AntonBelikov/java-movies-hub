@@ -8,15 +8,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class MoviesStore {
-    private List<Movie> movieList;
+    private final List<Movie> movieList;
+    private int idCounter;
 
     public MoviesStore() {
         movieList = new ArrayList<>();
+        idCounter = 1;
     }
 
     public Optional<Movie> findFilm(int id) {
         for (Movie movie : movieList) {
-            if (movie.hashCode() == id) {
+            if (movie.getId() == id) {
                 return Optional.of(movie);
             }
         }
@@ -24,12 +26,14 @@ public class MoviesStore {
     }
 
     public void addFilm(Movie movie) {
+        movie.setId(idCounter);
         movieList.add(movie);
+        idCounter++;
     }
 
     public boolean deleteFilm(int id) {
         for (Movie movie : movieList) {
-            if (movie.hashCode() == id) {
+            if (movie.getId() == id) {
                 return movieList.remove(movie);
             }
         }
@@ -38,7 +42,7 @@ public class MoviesStore {
 
     public boolean checkFilm(int id) {
         for (Movie movie : movieList) {
-            if (movie.hashCode() == id) {
+            if (movie.getId() == id) {
                 return true;
             }
         }
